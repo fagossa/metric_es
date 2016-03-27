@@ -1,0 +1,36 @@
+#!/usr/bin/env node
+
+/**
+ * Module dependencies.
+ */
+var debug = require('debug')('metric_es:server');
+var express = require('express');
+var app = express();
+var metricRoutes = require('./routes/metricRoutes');
+metricRoutes.routes(app);
+
+/**
+ * Get port from environment and store in Express.
+ */
+var port = normalizePort(process.env.PORT || '3000');
+app.listen(port);
+
+
+/**
+ * Normalize a port into a number, string, or false.
+ */
+function normalizePort(val) {
+  var port = parseInt(val, 10);
+
+  if (isNaN(port)) {
+    // named pipe
+    return val;
+  }
+
+  if (port >= 0) {
+    // port number
+    return port;
+  }
+
+  return false;
+}
