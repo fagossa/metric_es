@@ -6,7 +6,7 @@
 var debug = require('debug')('metric_es:server');
 var express = require('express');
 var app = express();
-var metricRoutes = require('./routes/metricRoutes');
+var metricRoutes = require('../routes/metricRoutes');
 metricRoutes.routes(app);
 
 /**

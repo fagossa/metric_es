@@ -3,8 +3,7 @@ var fs = require('./../utils/fs');
 
 var ElasticSearch = {
     routes: function (app) {
-        app.put('/tata', function (req, res) {
-
+        app.get('/health', function (req, res) {
             res.send("its working");
         });
     }
