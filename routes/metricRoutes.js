@@ -1,14 +1,36 @@
 'use strict';
 var fs = require('./../utils/fs');
+var validator = require('node-validator');
 
-var ElasticSearch = {
+// Validations
+var checkCompostMachine = validator.isObject()
+  .withRequired('hydraulicOilLevel', validator.isNumber({min: 0, max: 10000}))
+  .withRequired('hydraulicOilPresure', validator.isNumber({min: 0, max: 10000}))
+  .withRequired('distance', validator.isNumber({min: 0, max: 1000000}))
+  .withRequired('hydraulicOilTemperature', validator.isNumber({min: 0, max: 10000}))
+  .withRequired('boothPresure', validator.isNumber({min: 0, max: 10000}))
+;
+
+var check = validator.isObject()
+  .withRequired('componentId', validator.isString())
+  .withRequired('timestamp', validator.isString()) //TODO: maybe isIsoDate ?
+  .withOptional('compostMachineData', checkCompostMachine)
+;
+
+// routes for metric
+var Metric = {
     routes: function (app) {
-        app.get('/health', function (req, res) {
-            res.send("its working");
+        app.post('/metric', function (req, res) {
+            validator.run(check, req.body, function(errorCount, errors) {
+              if (!errorCount) {
+                res.send("");
+              } else {
+                res.status(400).send(errors);
+              }
+            });
         });
     }
 }
 ;
 
-
-module.exports = ElasticSearch;
+module.exports = Metric;
