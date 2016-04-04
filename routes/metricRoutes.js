@@ -11,10 +11,19 @@ var checkCompostMachine = validator.isObject()
   .withRequired('boothPresure', validator.isNumber({min: 0, max: 10000}))
 ;
 
+var checkCummisEngineData = validator.isObject()
+  .withRequired('hydraulicOilPreasure', validator.isNumber({min: 0, max: 10000}))
+  .withRequired('batteryVoltage', validator.isNumber({min: 0, max: 10000}))
+  .withRequired('oilLevel', validator.isNumber({min: 0, max: 1000000}))
+  .withRequired('temperature', validator.isNumber({min: 0, max: 10000}))
+  .withRequired('rpmDieselEngine', validator.isNumber({min: 0, max: 10000}))
+;
+
 var check = validator.isObject()
   .withRequired('componentId', validator.isString())
   .withRequired('timestamp', validator.isString()) //TODO: maybe isIsoDate ?
   .withOptional('compostMachineData', checkCompostMachine)
+  .withOptional('compostMachineData', checkCummisEngineData)
 ;
 
 // routes for metric
