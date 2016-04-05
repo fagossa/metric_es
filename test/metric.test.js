@@ -5,7 +5,8 @@ var should = chai.should();
 
 chai.use(chaiHttp);
 
-describe('Blobs', function() {
+describe('A metric api', function() {
+
   it('should get an answer from /health GET', function(done) {
   chai.request(server)
     .get('/health')

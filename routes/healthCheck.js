@@ -11,5 +11,4 @@ var HealthCheck = {
 }
 ;
 
-
 module.exports = HealthCheck;

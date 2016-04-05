@@ -4,7 +4,16 @@ Metrics
 
 Nodejs inserting data on ES
 
-## Data model
+## How to execute the test?
+
+  npm run test
+
+
+## How to start the server?
+
+  npm run start
+
+## What is the data model proposed?
 
 The proposed domain model is as follows:
 

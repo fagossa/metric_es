@@ -23,7 +23,6 @@ metricRoutes.routes(app);
 var port = normalizePort(process.env.PORT || '3000');
 app.listen(port);
 
-
 /**
  * Normalize a port into a number, string, or false.
  */
@@ -42,3 +41,5 @@ function normalizePort(val) {
 
   return false;
 }
+
+module.exports = app;
