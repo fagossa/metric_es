@@ -11,7 +11,7 @@ module.exports = {
         if(err) {
           console.log('Error connecting to the database. ' + err);
         } else {
-          console.log('Connected to Database: ' + config.mongoURI[app.settings.env]);
+          console.log('Connected to Database: ' + config.mongoURI[env]);
         }
       });
     },
