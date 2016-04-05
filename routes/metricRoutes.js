@@ -1,6 +1,7 @@
 'use strict';
 var fs = require('./../utils/fs');
 var validator = require('node-validator');
+//var mongodb = require('../db');
 
 // Validations
 var checkCompostMachine = validator.isObject()
@@ -47,8 +48,11 @@ var Metric = {
     routes: function (app) {
         app.post('/metric', function (req, res) {
             validator.run(check, req.body, function(errorCount, errors) {
+              res.setHeader('Content-Type', 'application/json');
               if (!errorCount) {
-                res.send({});
+                //var val = req.body.value;
+                //mongodb.sendVal(val, res);
+                res.send(JSON.stringify({status: "ok"}));
               } else {
                 res.status(400).send(errors);
               }
