@@ -19,11 +19,27 @@ var checkCummisEngineData = validator.isObject()
   .withRequired('rpmDieselEngine', validator.isNumber({min: 0, max: 10000}))
 ;
 
+var checkPosition = validator.isObject()
+  .withRequired('latitude', validator.isNumber({min: -1000000,  max: 1000000}))
+  .withRequired('longitude', validator.isNumber({min: -1000000, max: 1000000}))
+;
+
+var checkGeneralData = validator.isObject()
+  .withRequired('hydraulicOilViscosity', validator.isNumber({min: 0, max: 10000}))
+  .withRequired('hydraulicOilTurbidity', validator.isNumber({min: 0, max: 10000}))
+  .withRequired('mechanicalStressLeftTrack', validator.isNumber({min: 0, max: 1000000}))
+  .withRequired('mechanicalStressRightTrack', validator.isNumber({min: 0, max: 10000}))
+  .withRequired('cumulativeWorkingTime', validator.isNumber({min: 0, max: 10000}))
+  .withRequired('workingSystem', validator.isBoolean())
+  .withOptional('position', checkPosition)
+;
+
 var check = validator.isObject()
   .withRequired('componentId', validator.isString())
   .withRequired('timestamp', validator.isString()) //TODO: maybe isIsoDate ?
   .withOptional('compostMachineData', checkCompostMachine)
-  .withOptional('compostMachineData', checkCummisEngineData)
+  .withOptional('cummisEngineData', checkCummisEngineData)
+  .withOptional('generalData', checkGeneralData)
 ;
 
 // routes for metric
@@ -32,7 +48,7 @@ var Metric = {
         app.post('/metric', function (req, res) {
             validator.run(check, req.body, function(errorCount, errors) {
               if (!errorCount) {
-                res.send("");
+                res.send({});
               } else {
                 res.status(400).send(errors);
               }

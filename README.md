@@ -41,10 +41,10 @@ The proposed domain model is as follows:
         "mechanicalStressLeftTrack": 0.0,
         "mechanicalStressRightTrack": 0.0,
         "cumulativeWorkingTime": 0.0,
-        "workingSystem": "String",
+        "workingSystem": true,
         "position": {
             "latitude": 0.0,
-             "longitude": 0.0
+            "longitude": 0.0
         }
       }
     }
