@@ -141,3 +141,65 @@ describe('A metric api receiving cummis Engine Data', function() {
   });
 
 });
+
+describe('A metric api receiving general Data', function() {
+
+  it('should get an "OK" from valid general data posted at /metric', function(done) {
+  chai.request(server)
+    .post('/metric')
+    .send(
+      {
+        "timestamp": "2016-02-23T13:54:39.34",
+        "componentId": "2017cad3-6b68-48dd-9f93-ebd3486a9210",
+        "generalData" : {
+          "hydraulicOilViscosity": 0.0,
+          "hydraulicOilTurbidity": 0.0,
+          "mechanicalStressLeftTrack": 0.0,
+          "mechanicalStressRightTrack": 0.0,
+          "cumulativeWorkingTime": 0.0,
+          "workingSystem": true,
+          "position": {
+              "latitude": 0.0,
+              "longitude": 0.0
+          }
+        }
+      }
+    )
+    .end(function(err, res){
+      res.should.have.status(200);
+      res.should.be.json;
+      done();
+    });
+  });
+
+  it('should get a "Bad request" from invalid general data posted at /metric', function(done) {
+  chai.request(server)
+    .post('/metric')
+    .send(
+      {
+        "timestamp": "2016-02-23T13:54:39.34",
+        "componentId": "2017cad3-6b68-48dd-9f93-ebd3486a9210",
+        "generalData" : {
+          "hydraulicOilViscosity": "0.0",
+          "hydraulicOilTurbidity": 0.0,
+          "mechanicalStressLeftTrack": 0.0,
+          "mechanicalStressRightTrack": "0.0",
+          "cumulativeWorkingTime": "0.0",
+          "workingSystem": "true",
+          "position": {
+              "latitude": 0.0,
+              "longitude": "0.0"
+          }
+        }
+      }
+    )
+    .end(function(err, res){
+      res.should.have.status(400);
+      res.should.be.json;
+      res.body.should.be.a('array');
+      res.body.should.have.length.lengthOf(5);
+      done();
+    });
+  });
+
+});
