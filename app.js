@@ -8,6 +8,8 @@ var bodyParser   = require('body-parser')
 var metricRoutes = require('./routes/metricRoutes');
 var healthCheck  = require('./routes/healthCheck');
 var logger       = require('morgan');
+var mongodb      = require('./db');
+var config       = require('./_config');
 
 var app          = express();
 app.use(logger('dev'));
@@ -30,7 +32,7 @@ app.use(function(req, res, next) {
 
 // development error handler
 // will print stacktrace
-if (app.get('env') === 'development') {
+if (app.settings.env === 'development') {
   app.use(function(err, req, res, next) {
     res.status(err.status || 500);
     res.render('error', {
@@ -50,5 +52,7 @@ app.use(function(err, req, res, next) {
     error: {}
   });
 });
+
+mongodb.connectDB(app.settings.env);
 
 module.exports = app;

@@ -6,8 +6,14 @@ var schema = mongoose.Schema({value: String});
 var Values = mongoose.model('values', schema);
 
 module.exports = {
-    connectDB : function() {
-        mongoose.connect(process.env.MONGODB_ADDON_URI);
+    connectDB : function(env) {
+      mongoose.connect(config.mongoURI[env], function(err, res) {
+        if(err) {
+          console.log('Error connecting to the database. ' + err);
+        } else {
+          console.log('Connected to Database: ' + config.mongoURI[app.settings.env]);
+        }
+      });
     },
 
     getVal : function(res) {
