@@ -2,16 +2,16 @@
 Metrics
 ======
 
-Nodejs inserting data on ES
+Prototype used to insert data on ES using a nodeJs api
 
 ## How to execute the test?
 
-  npm run test
+    npm run test
 
 
 ## How to start the server?
 
-  npm run start
+    npm run start
 
 ## What is the data model proposed?
 
