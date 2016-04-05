@@ -6,6 +6,12 @@ Prototype used to insert data on ES using a nodeJs api
 
 ## How to execute the test?
 
+Be sure that your mongodb instance is running locally
+
+    mongod
+
+Then, to run the test, just type
+
     npm run test
 
 
