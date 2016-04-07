@@ -50,9 +50,8 @@ var Metric = {
             validator.run(check, req.body, function(errorCount, errors) {
               res.setHeader('Content-Type', 'application/json');
               if (!errorCount) {
-                var value = req.body.value;
+                var value = req.body;
                 mongodb.sendVal(value, res);
-                res.send(JSON.stringify({status: "ok"}));
               } else {
                 res.status(400).send(errors);
               }

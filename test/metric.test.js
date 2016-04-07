@@ -1,6 +1,10 @@
+'use strict';
+process.env.NODE_ENV = 'test';
+
 var chai = require('chai');
 var chaiHttp = require('chai-http');
 var server = require('../app');
+var Metrics = require('../models/metric');
 var should = chai.should();
 
 chai.use(chaiHttp);
@@ -19,6 +23,15 @@ describe('A metric api with health checks', function() {
 });
 
 describe('A metric api', function() {
+
+  beforeEach(function(done){
+    done();
+  });
+
+  afterEach(function(done){
+    //Metrics.collection.drop();
+    done();
+  });
 
   it('should get a "OK" from minimum metric data posted at /metric', function(done) {
   chai.request(server)

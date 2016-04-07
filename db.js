@@ -1,9 +1,6 @@
 var mongoose = require('mongoose');
-
 var config = require('./_config');
-
-var schema = mongoose.Schema({value: String});
-var Values = mongoose.model('values', schema);
+var Metrics = require('./models/metric');
 
 module.exports = {
     connectDB : function(env) {
@@ -17,12 +14,13 @@ module.exports = {
     },
 
     getVal : function(res) {
-        Values.find(function(err, result) {
+        Metrics.find(function(err, result) {
             if (err) {
                 console.log(err);
                 res.send('database error');
-                return
+                return;
             }
+            // TODO: implement!!!
             var values = {};
             for (var i in result) {
                 var val = result[i];
@@ -33,19 +31,19 @@ module.exports = {
     },
 
     sendVal : function(val, res) {
-        var request = new Values({value: val});
+        var request = new Metrics(val);
         request.save(function (err, result) {
             if (err) {
                 console.log(err);
-                res.send(JSON.stringify({status: "error", value: "Error, db request failed"}));
-                return
+                res.status(400).send(JSON.stringify({status: "error", value: "Error, db request failed"}));
+                return;
             }
-            res.status(201).send(JSON.stringify({status: "ok", value: result["value"], id: result["_id"]}));
+            res.status(200).send(JSON.stringify({status: "ok", id: result["_id"]}));
         });
     },
 
     delVal : function(id) {
-        Values.remove({_id: id}, function(err) {
+        Metrics.remove({_id: id}, function(err) {
             if (err) {
                 console.log(err);
             }
