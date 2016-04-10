@@ -29,7 +29,7 @@ describe('A metric api', function() {
   });
 
   afterEach(function(done){
-    //Metrics.collection.drop();
+    Metrics.collection.drop();
     done();
   });
 
@@ -136,10 +136,10 @@ describe('A metric api receiving cummis Engine Data', function() {
         "timestamp": "2016-02-23T13:54:39.34",
         "componentId": "2017cad3-6b68-48dd-9f93-ebd3486a9210",
         "cummisEngineData" : {
-          "hydraulicOilPreasure": "0.0",
+          "hydraulicOilPreasure": "0.0", //invalid data
           "batteryVoltage": 0.0,
           "oilLevel": 0.0,
-          "temperature": "0.0",
+          "temperature": "0.0", // invalid data
           "rpmDieselEngine": 0.0
         }
       }
@@ -172,8 +172,8 @@ describe('A metric api receiving general Data', function() {
           "cumulativeWorkingTime": 0.0,
           "workingSystem": true,
           "position": {
-              "latitude": 0.0,
-              "longitude": 0.0
+              "latitude": 10.0,
+              "longitude": 5.0
           }
         }
       }
@@ -193,15 +193,15 @@ describe('A metric api receiving general Data', function() {
         "timestamp": "2016-02-23T13:54:39.34",
         "componentId": "2017cad3-6b68-48dd-9f93-ebd3486a9210",
         "generalData" : {
-          "hydraulicOilViscosity": "0.0",
+          "hydraulicOilViscosity": "0.0", // invalid data
           "hydraulicOilTurbidity": 0.0,
           "mechanicalStressLeftTrack": 0.0,
-          "mechanicalStressRightTrack": "0.0",
-          "cumulativeWorkingTime": "0.0",
-          "workingSystem": "true",
+          "mechanicalStressRightTrack": "0.0", // invalid data
+          "cumulativeWorkingTime": "0.0", // invalid data
+          "workingSystem": "true", // invalid data
           "position": {
               "latitude": 0.0,
-              "longitude": "0.0"
+              "longitude": "0.0" // invalid data
           }
         }
       }

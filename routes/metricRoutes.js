@@ -2,6 +2,7 @@
 var fs = require('./../utils/fs');
 var validator = require('node-validator');
 var mongodb = require('../db');
+var Metrics = require('../models/metric');
 
 // Validations
 var checkCompostMachine = validator.isObject()
@@ -50,7 +51,7 @@ var Metric = {
             validator.run(check, req.body, function(errorCount, errors) {
               res.setHeader('Content-Type', 'application/json');
               if (!errorCount) {
-                var value = req.body;
+                var value = new Metrics(req.body);
                 mongodb.sendVal(value, res);
               } else {
                 res.status(400).send(errors);

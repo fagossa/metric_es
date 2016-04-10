@@ -15,8 +15,9 @@ var app          = express();
 app.use(logger('dev'));
 
 // define body parsers
-app.use(bodyParser.urlencoded({ extended: false }))
-app.use(bodyParser.json())
+app.use(bodyParser.urlencoded({ extended: false }));
+app.use(bodyParser.json());
+app.set('view engine', 'jade'); // TODO: this should be removed!!!
 
 healthCheck.routes(app);
 metricRoutes.routes(app);

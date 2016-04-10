@@ -54,3 +54,11 @@ The proposed domain model is as follows:
         }
       }
     }
+
+# Mongo
+
+## Command line
+
+How to delete an existing db?
+
+    mongo metric-test --eval "db.dropDatabase()

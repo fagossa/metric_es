@@ -1,6 +1,5 @@
 var mongoose = require('mongoose');
 var config = require('./_config');
-var Metrics = require('./models/metric');
 
 module.exports = {
     connectDB : function(env) {
@@ -13,8 +12,8 @@ module.exports = {
       });
     },
 
-    getVal : function(res) {
-        Metrics.find(function(err, result) {
+    getVal : function(entity, res) {
+        entity.find(function(err, result) {
             if (err) {
                 console.log(err);
                 res.send('database error');
@@ -30,20 +29,23 @@ module.exports = {
         });
     },
 
-    sendVal : function(val, res) {
-        var request = new Metrics(val);
-        request.save(function (err, result) {
+    sendVal : function(entity, res) {
+        entity.save(function (err, result) {
             if (err) {
                 console.log(err);
-                res.status(400).send(JSON.stringify({status: "error", value: "Error, db request failed"}));
+                res
+                  .status(400)
+                  .send(JSON.stringify({status: "error", value: "Error, db request failed"}));
                 return;
             }
-            res.status(200).send(JSON.stringify({status: "ok", id: result["_id"]}));
+            res
+              .status(200)
+              .send(JSON.stringify({status: "ok", id: result["_id"]}));
         });
     },
 
-    delVal : function(id) {
-        Metrics.remove({_id: id}, function(err) {
+    delVal : function(entity, id) {
+        entity.remove({_id: id}, function(err) {
             if (err) {
                 console.log(err);
             }
